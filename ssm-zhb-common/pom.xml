@@ -24,6 +24,14 @@
             <version>1.2.46</version>
         </dependency>
 
+        <!-- JavaBean映射工具库  -->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.4.0</version>
+        </dependency>
+        <!-- end -->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>

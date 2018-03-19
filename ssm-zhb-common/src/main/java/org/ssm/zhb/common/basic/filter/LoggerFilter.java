@@ -66,7 +66,7 @@ public class LoggerFilter implements Filter {
         if (REQUEST_METHOD_GET.equals(wrappedRequest.getMethod())) {
             // 获取请求参数
             String param = wrappedRequest.getQueryString();
-            logger.info("请求:{} 处理开始！请求访问方式:{}，请求参数:{}", url.toString(), wrappedRequest.getMethod(), param);
+            logger.info(String.format("请求:%s 处理开始！请求访问方式:{}，请求参数:{}", url.toString()), wrappedRequest.getMethod(), param);
         } else {
             if (MediaType.APPLICATION_JSON_VALUE.equals(wrappedRequest.getContentType())) {
                 InputStream iStream = null;
@@ -80,7 +80,7 @@ public class LoggerFilter implements Filter {
                         sBuilder.append(line);
                     }
                     System.out.println(sBuilder.toString());
-                    logger.info("请求:{} 处理开始！请求访问方式:{}，请求参数:{}", url.toString(), wrappedRequest.getMethod(), sBuilder.toString());
+                    logger.info(String.format("请求:%s 处理开始！请求访问方式:{}，请求参数:{}", url.toString()), wrappedRequest.getMethod(), sBuilder.toString());
                 } catch (IOException e) {
                     logger.error("流转换异常！", e);
                     throw new BusinessException("流转换异常！");

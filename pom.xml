@@ -13,6 +13,7 @@
         <module>ssm-zhb-biz</module>
         <module>ssm-zhb-common</module>
         <module>ssm-zhb-dao</module>
+        <module>ssm-zhb-test</module>
     </modules>
 
 

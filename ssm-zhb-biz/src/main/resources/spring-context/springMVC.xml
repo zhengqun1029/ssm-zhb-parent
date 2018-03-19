@@ -14,6 +14,40 @@
     <!-- 自动扫描 -->
     <context:component-scan base-package="org.ssm.zhb.biz.controller" />
 
+    <!-- 请求参数Date类型由前端传入String 转为 yyyy-MM-dd HH:mm:ss 格式 begin -->
+    <bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+        <property name="dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+            </bean>
+        </property>
+        <property name="serializationInclusion">
+            <util:constant static-field="com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL" ></util:constant>
+        </property>
+    </bean>
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper" ref="jacksonObjectMapper" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <!--<ref bean="stringConverter" />-->
+                <ref bean="mappingJacksonHttpMessageConverter" /> <!-- json转换器 -->
+            </list>
+        </property>
+    </bean>
+    <!-- end -->
+
+    <!-- dozer 封装 (JavaBean映射工具库) -->
+    <bean id="dozerMapper" class="org.ssm.zhb.common.utils.DozerMapper" scope="singleton">
+        <property name="mapper">
+            <bean class="org.dozer.spring.DozerBeanMapperFactoryBean" scope="singleton">
+                <property name="mappingFiles" value="classpath*:beanmap/*.xml" />
+            </bean>
+        </property>
+    </bean>
+
     <!-- 自动注册  -->
     <mvc:annotation-driven>
         <!-- 消息转换器,解决responseBody返回中外乱码问题 -->
@@ -24,6 +58,7 @@
         <!--</mvc:message-converters>-->
     </mvc:annotation-driven>
 
+    <!-- 自定义异常处理 -->
     <bean class="org.ssm.zhb.common.basic.interceptor.ExceptionResolver"/>
 
     <!-- 添加拦截器 -->
