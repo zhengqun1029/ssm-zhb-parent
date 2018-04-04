@@ -1,5 +1,8 @@
 package org.ssm.zhb.test;
 
+import strategyPattern.context.StrategyContext;
+import strategyPattern.enums.StrategyEnum;
+
 /**
  * @Title: ${file_name}
  * @Package: ${package_name}
@@ -19,7 +22,17 @@ public class Test {
         }
     }
 
+    public static void testStrategyPattern(StrategyEnum strategyEnum, String paramStr, Integer paramInt ) {
+        StrategyContext context = new StrategyContext(strategyEnum);
+        context.functionA();
+        context.functionB(paramStr);
+        context.functionC(paramInt);
+    }
+
     public static void main(String[] args) {
-        doMatchForver();
+//        doMatchForver();
+        testStrategyPattern(StrategyEnum.A, "aaaaa", 1111);
+        testStrategyPattern(StrategyEnum.B, "bbbbb", 2222);
+        testStrategyPattern(StrategyEnum.C, "ccccc", 3333);
     }
 }
